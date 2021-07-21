@@ -22,10 +22,20 @@ namespace LoanWolf_MVC.Controllers
         {
             return View();
         }
+        
 
-        public IActionResult Privacy()
+        public IActionResult Wolf()
         {
-            return View();
+            Loan loan = new();
+
+            loan.Payment = 0.0m;
+            loan.Rate = 3.5m;
+            loan.Term = 60;
+            loan.TotalInterest = 0.0m;
+            loan.TotalCost = 0.0m;
+            loan.Amount = 150000m;
+
+            return View(loan);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
