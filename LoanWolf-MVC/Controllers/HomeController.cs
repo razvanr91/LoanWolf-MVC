@@ -1,4 +1,5 @@
-﻿using LoanWolf_MVC.Models;
+﻿using LoanWolf_MVC.Helpers;
+using LoanWolf_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,7 +24,7 @@ namespace LoanWolf_MVC.Controllers
             return View();
         }
         
-
+        [HttpGet]
         public IActionResult Wolf()
         {
             Loan loan = new();
@@ -36,6 +37,18 @@ namespace LoanWolf_MVC.Controllers
             loan.Amount = 150000m;
 
             return View(loan);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Wolf(Loan loan)
+        {
+            // Calculate the loan
+            var loanHelper = new LoanHelper();
+
+            Loan userLoan = loanHelper.GetPayments(loan);
+
+            return View(userLoan);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
